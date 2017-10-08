@@ -1,0 +1,19 @@
+version: '2'
+services:
+    soapy-app:
+        image: soapy
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://soapy-postgresql:5432/soapy
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=soapy-elasticsearch:9300
+        ports:
+            - 8080:8080
+    soapy-postgresql:
+        extends:
+            file: postgresql.yml
+            service: soapy-postgresql
+    soapy-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: soapy-elasticsearch
